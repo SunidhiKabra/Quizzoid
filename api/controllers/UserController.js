@@ -27,3 +27,22 @@ exports.create_user = function(req, res){
     }
   });
 };
+
+//user sign in
+exports.user_signin = function(req, res){
+  User.findOne({
+      username: req.body.username,
+      password: req. body.password
+    }, function(err, user){
+      if (err)  throw err;
+      if (!user) {
+        res.status(401).json({ message: 'Authentication failed. user not found.', status: '401' });
+      }
+      else if (user) {
+        req.session.user = user.username;
+        console.log(req.session.user);
+        return res.json({ username: req.session.user.username, message: 'Authentication successful, user logged in', status: '200' });
+      }
+    }
+  );
+};
