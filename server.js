@@ -3,6 +3,7 @@ var express = require('express'),
     port = process.env.PORT || 3000;
     mongoose = require('mongoose'),
     User = require('./api/models/UserModel'),
+    Question = require('./api/models/QuestionModel'),
     bodyParser = require('body-parser');
 
 var session = require('express-session');
