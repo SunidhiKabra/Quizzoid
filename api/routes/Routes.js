@@ -10,5 +10,8 @@ module.exports = function(app) {
       .post(UserHandlers.user_signin);
 
   app.route('/insert_question')
-      .post(QuestionHandlers.insert_question);    
+      .post(QuestionHandlers.insert_question);
+
+  app.route('/get_all_questions')
+      .post(QuestionHandlers.get_all_questions);        
 };
