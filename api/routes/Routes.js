@@ -13,5 +13,5 @@ module.exports = function(app) {
       .post(QuestionHandlers.insert_question);
 
   app.route('/get_all_questions')
-      .post(QuestionHandlers.get_all_questions);        
+      .post(QuestionHandlers.get_all_questions);
 };

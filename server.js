@@ -6,6 +6,8 @@ var express = require('express'),
     Question = require('./api/models/QuestionModel'),
     bodyParser = require('body-parser');
 
+var routerForFrontEnd = require('./frontEnd/routerForFrontEnd/router.js');
+
 var session = require('express-session');
 app.use(session({ secret: 'this-is-a-secret-token', cookie: { maxAge: 60000 }}));
 
@@ -18,6 +20,10 @@ app.use(bodyParser.json());
 
 var routes = require('./api/routes/Routes');
 routes(app);
+
+app.set('view engine', 'ejs');
+app.use('/resources', express.static('resources'));
+routerForFrontEnd.routerForFrontEnd(app);
 
 mongoose.connection.once('open', function(){
   console.log('Connectione made');

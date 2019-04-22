@@ -40,8 +40,7 @@ exports.user_signin = function(req, res){
       }
       else if (user) {
         req.session.user = user.username;
-        console.log(req.session.user);
-        return res.json({ username: req.session.user.username, message: 'Authentication successful, user logged in', status: '200' });
+        return res.json({ username: req.session.user, message: 'Authentication successful, user logged in', status: '200' });
       }
     }
   );

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include partials/scripts.ejs%>
+    <% include partials/title.ejs%>
+    <script>
+      $(document).ready(function() {
+          $.ajax({
+            type: 'post',
+            url : '/get_all_questions',
+            success:
+                function(result) {
+                  // alert(JSON.stringify(result));
+                  // console.log("success : Questions " + JSON.stringify(result));
+                  var panel = "<div id='panel' class='container'>"
+
+                for (i = 0; i < result.length; i++) {
+                panel +=  "<div class='panel panel-default'>"+
+                      "<div class='panel-heading' id='question'><h4> Question " + (i+1) + " <br><br>" + result[i].question + "</h4></div>" +
+                        "<div class='panel-body'>" +
+                          "<label class='container2' id = 'option1'>" + result[i].option1 +
+                            "<input type='radio' name = 'option" + i + "'>" +
+                              "<span class='checkmark'></span>"+
+                            "</label>" +
+                            "<label class='container2' id = 'option2'>"  + result[i].option2 +
+                              "<input type='radio' name = 'option" + i + "'>" +
+                                "<span class='checkmark'></span>"+
+                              "</label>" +
+                            "<label class='container2' id = 'option3'>"  + result[i].option3 +
+                              "<input type='radio' name = 'option" + i + "'>" +
+                                "<span class='checkmark'></span>"+
+                              "</label>" +
+                            "<label class='container2' id = 'option4'>"  + result[i].option4 +
+                              "<input type='radio' name = 'option" + i + "'>" +
+                                "<span class='checkmark'></span>"+
+                              "</label>" +
+                            "</div>" +
+                          "</div>"
+                }
+
+                panel += "</div>"
+
+                $('#showQuestions').append(panel);
+                },
+               error:
+                function(result) {
+                    alert("Something went wrong. Try again!");
+                    window.location.href = '/homePage';
+                   }
+               });
+        });
+      </script>
+  </head>
+  <body>
+    <% include partials/headerForOthers.ejs%>
+    <div id='showQuestions'>
+    </div>
+
+  </body>
+</html>

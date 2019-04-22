@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include partials/scripts.ejs%>
+    <% include partials/title.ejs%>
+    <script>
+      $(document).ready(function() {
+        $("#create_quiz_form").on('submit', function(e) {
+          e.preventDefault();
+          $.ajax({
+            type: $(this).prop('method'),
+            url : $(this).prop('action'),
+            data: $(this).serialize(),
+            success:
+                function(result) {
+                    if(result.status==200){
+                      alert("Question Added!");
+                      window.location.href = '/home_page';
+                    }
+                    else{
+                    }
+                },
+               error:
+                function(result) {
+                    alert("Something went wrong. Try again!");
+                    window.location.href = '/create_quiz';
+                   }
+               })
+            });
+        });
+      </script>
+  </head>
+  <body>
+    <% include partials/headerForOthers.ejs%>
+    <div class="container">
+      <div class="container3">
+        <form id="create_quiz_form" action="/insert_question" method="post">
+          <div class="form-group margin10">
+            <label class="control-label col-sm-2">Question:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="question" placeholder="Enter question" name="question" required>
+            </div>
+          </div>
+          <br>
+          <div class="form-group margin10">
+            <label class="control-label col-sm-2">Option 1:</label>
+            <div class="col-sm-10">
+            <input type="text" class="form-control" id="option1" placeholder="Enter option1" name="option1" required>
+            </div>
+          </div>
+          <br>
+          <div class="form-group margin10">
+            <label class="control-label col-sm-2">Option 2:</label>
+            <div class="col-sm-10">
+            <input type="text" class="form-control" id="option2" placeholder="Enter option2" name="option2" required>
+            </div>
+          </div>
+          <br>
+          <div class="form-group margin10">
+            <label class="control-label col-sm-2">Option 3:</label>
+            <div class="col-sm-10">
+            <input type="text" class="form-control" id="option3" placeholder="Enter option3" name="option3" required>
+            </div>
+          </div>
+          <br>
+          <div class="form-group margin10">
+            <label class="control-label col-sm-2">Option 4:</label>
+            <div class="col-sm-10">
+            <input type="text" class="form-control" id="option4" placeholder="Enter option4" name="option4" required>
+            </div>
+          </div>
+          <br>
+          <div class="form-group margin10">
+            <label class="control-label col-sm-2">Correct Answer:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="correct" placeholder="Enter correct answer" name="correct" required>
+            </div>
+          </div>
+          <br>
+          <button type="submit" class="btn btn-default btn1 margin10">Submit</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

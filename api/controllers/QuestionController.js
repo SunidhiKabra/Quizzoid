@@ -22,6 +22,6 @@ exports.insert_question = function(req, res){
 exports.get_all_questions = function(req, res){
   mongoose.connection.collection("Question").find({}).toArray(function(err, result) {
     if (err) throw err;
-    return res.json(result)
+    return res.json(result);
   });
 };
