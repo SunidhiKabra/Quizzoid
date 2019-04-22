@@ -4,43 +4,55 @@
     <% include partials/scripts.ejs%>
     <% include partials/title.ejs%>
     <script>
+      var resultGlobal = null;
       $(document).ready(function() {
           $.ajax({
             type: 'post',
             url : '/get_all_questions',
             success:
                 function(result) {
-                  // alert(JSON.stringify(result));
+                  resultGlobal = result;
+                  // alert(JSON.stringify(resultGlobal));
                   // console.log("success : Questions " + JSON.stringify(result));
                   var panel = "<div id='panel' class='container'>"
-
                 for (i = 0; i < result.length; i++) {
                 panel +=  "<div class='panel panel-default'>"+
                       "<div class='panel-heading' id='question'><h4> Question " + (i+1) + " <br><br>" + result[i].question + "</h4></div>" +
                         "<div class='panel-body'>" +
-                          "<label class='container2' id = 'option1'>" + result[i].option1 +
-                            "<input type='radio' name = 'option" + i + "'>" +
-                              "<span class='checkmark'></span>"+
-                            "</label>" +
-                            "<label class='container2' id = 'option2'>"  + result[i].option2 +
-                              "<input type='radio' name = 'option" + i + "'>" +
-                                "<span class='checkmark'></span>"+
-                              "</label>" +
-                            "<label class='container2' id = 'option3'>"  + result[i].option3 +
-                              "<input type='radio' name = 'option" + i + "'>" +
-                                "<span class='checkmark'></span>"+
-                              "</label>" +
-                            "<label class='container2' id = 'option4'>"  + result[i].option4 +
-                              "<input type='radio' name = 'option" + i + "'>" +
-                                "<span class='checkmark'></span>"+
-                              "</label>" +
+                          "<form id='myForm'>" +
+                            "<input type='radio' name='radioName' class='radio1' value= " + result[i].option1 + " /> " + result[i].option1 + " <br />" +
+                            "<input type='radio' name='radioName' class='radio1' value= " + result[i].option2 + "/> " + result[i].option2 + " <br />" +
+                            "<input type='radio' name='radioName' class='radio1' value= " + result[i].option3 + " /> " + result[i].option3 + " <br />" +
+                            "<input type='radio' name='radioName' class='radio1' value= " + result[i].option4 + " /> " + result[i].option4 + " <br />" +
+                            // "<label class='container2' id = 'option1'>" + result[i].option1 +
+                            //   "<input type='radio' value = '" + result[i].option1 +"' name = 'option" + i + ">" +
+                            //     "<span class='checkmark'></span>"+
+                            //   "</label>" +
+                            //   "<label class='container2' id = 'option2'>"  + result[i].option2 +
+                            //     "<input type='radio' value = '" + result[i].option2 +"' name = 'option" + i + "'>" +
+                            //       "<span class='checkmark'></span>"+
+                            //     "</label>" +
+                            //   "<label class='container2' id = 'option3'>"  + result[i].option3 +
+                            //     "<input type='radio'  value = '" + result[i].option3 + "' name = 'option" + i + "'>" +
+                            //       "<span class='checkmark'></span>"+
+                            //     "</label>" +
+                            //   "<label class='container2' id = 'option4'>"  + result[i].option4 +
+                            //     "<input type='radio' value = '" + result[i].option4 + "' name = 'option" + i + "'>" +
+                            //       "<span class='checkmark'></span>"+
+                            //     "</label>" +
+                              "<button type='button' class='btn btn-default' onClick = 'myFunction(" + i + " )'>Submit</button>" +
+
+                              // "<button type='button' class='btn btn-default' onClick = 'myFunction(" + i + " , \'" + result[i].correct + "\')'>Submit</button>" +
+
+
+                              "</form>" +
                             "</div>" +
                           "</div>"
                 }
-
                 panel += "</div>"
-
                 $('#showQuestions').append(panel);
+
+
                 },
                error:
                 function(result) {
@@ -49,6 +61,20 @@
                    }
                });
         });
+
+        function myFunction(i){
+          var input = JSON.stringify($('.radio1:checked').val());
+          var correct =  resultGlobal[i].correct;
+          alert( input + " i = " + i + " resultGlobal  =" + correct);
+          if(String(input) === String(correct)){
+            console.log("correct");
+            alert("correct");
+          }
+          else{
+            console.log("incorrect");
+            alert("incorrect");
+          }
+        };
       </script>
   </head>
   <body>

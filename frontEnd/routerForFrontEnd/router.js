@@ -44,19 +44,19 @@ module.exports.routerForFrontEnd = function(app){
       res.render('createQuiz');
     }
   });
+  // 
+  // app.get('/start_quiz', function(req, res, next){
+  //   if(req.session.user === undefined){
+  //       res.redirect('/log_in');
+  //     }
+  //   else{
+  //       res.render('startQuiz');
+  //   }
+  // });
+
 
   app.get('/start_quiz', function(req, res, next){
-    if(req.session.user === undefined){
-        res.redirect('/log_in');
-      }
-    else{
         res.render('startQuiz');
-    }
   });
-
-
-  // app.get('/start_quiz', function(req, res, next){
-  //       res.render('startQuiz');
-  // });
 
 };

@@ -144,3 +144,14 @@
 	border-radius: 50%;
 	background: white;
 }
+
+.btn2{
+  background-color: #808080;
+  color: white;
+  border-color: #808080;
+}
+
+.btn2:hover{
+  background-color: #FB7548 !important;
+  border-color: #FB7548;
+}
