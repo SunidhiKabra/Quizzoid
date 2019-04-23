@@ -5,6 +5,8 @@
     <% include partials/title.ejs%>
     <script>
       var resultGlobal = null;
+      var score = 0;
+      var maxScore = 0;
       $(document).ready(function() {
           $.ajax({
             type: 'post',
@@ -14,16 +16,18 @@
                   resultGlobal = result;
                   // alert(JSON.stringify(resultGlobal));
                   // console.log("success : Questions " + JSON.stringify(result));
+                  maxScore = result.length * 10;
                   var panel = "<div id='panel' class='container'>"
                 for (i = 0; i < result.length; i++) {
+
                 panel +=  "<div class='panel panel-default'>"+
                       "<div class='panel-heading' id='question'><h4> Question " + (i+1) + " <br><br>" + result[i].question + "</h4></div>" +
                         "<div class='panel-body'>" +
                           "<form id='myForm'>" +
-                            "<input type='radio' name='radioName' class='radio1' value= " + result[i].option1 + " /> " + result[i].option1 + " <br />" +
-                            "<input type='radio' name='radioName' class='radio1' value= " + result[i].option2 + "/> " + result[i].option2 + " <br />" +
-                            "<input type='radio' name='radioName' class='radio1' value= " + result[i].option3 + " /> " + result[i].option3 + " <br />" +
-                            "<input type='radio' name='radioName' class='radio1' value= " + result[i].option4 + " /> " + result[i].option4 + " <br />" +
+                            "<input type='radio' name='radioName' class='radio" + i + "' value= '" + result[i].option1 + "' /> " + result[i].option1 + " <br />" +
+                            "<input type='radio' name='radioName' class='radio" + i + "' value= '" + result[i].option2 + "'/> " + result[i].option2 + " <br />" +
+                            "<input type='radio' name='radioName' class='radio" + i + "' value= '" + result[i].option3 + "' /> " + result[i].option3 + " <br />" +
+                            "<input type='radio' name='radioName' class='radio" + i + "' value= '" + result[i].option4 + "'/> " + result[i].option4 + " <br />" +
                             // "<label class='container2' id = 'option1'>" + result[i].option1 +
                             //   "<input type='radio' value = '" + result[i].option1 +"' name = 'option" + i + ">" +
                             //     "<span class='checkmark'></span>"+
@@ -40,7 +44,7 @@
                             //     "<input type='radio' value = '" + result[i].option4 + "' name = 'option" + i + "'>" +
                             //       "<span class='checkmark'></span>"+
                             //     "</label>" +
-                              "<button type='button' class='btn btn-default' onClick = 'myFunction(" + i + " )'>Submit</button>" +
+                              "<button type='button' class='btn btn-default btn1' onClick = 'myFunction(" + i + " )'>Submit</button>" +
 
                               // "<button type='button' class='btn btn-default' onClick = 'myFunction(" + i + " , \'" + result[i].correct + "\')'>Submit</button>" +
 
@@ -63,17 +67,30 @@
         });
 
         function myFunction(i){
-          var input = JSON.stringify($('.radio1:checked').val());
+          var input = $('.radio' + i +':checked').val();
           var correct =  resultGlobal[i].correct;
-          alert( input + " i = " + i + " resultGlobal  =" + correct);
+          // alert("input = " + input + " i = " + i + " correct = " + correct);
           if(String(input) === String(correct)){
-            console.log("correct");
-            alert("correct");
+              score = score + 10;
+              // alert("Score = " + score);
           }
           else{
             console.log("incorrect");
-            alert("incorrect");
+            // alert("incorrect");
           }
+        };
+
+        function submitQuizFunction(){
+            var percentage = ((score/maxScore) * 100).toFixed(0);
+            alert("Score = " + score + " maxScore = " + maxScore + " percentage = " + percentage);
+            var url = '/score';
+            var form = $('<form action="' + url + '" method="post">' +
+              '<input type="text" name="score" value="' + score + '" />' +
+              '<input type="text" name="maxScore" value="' + maxScore + '" />' +
+              '<input type="text" name="percentage" value="' + percentage + '" />' +
+              '</form>');
+            $('body').append(form);
+            form.submit();
         };
       </script>
   </head>
@@ -81,6 +98,8 @@
     <% include partials/headerForOthers.ejs%>
     <div id='showQuestions'>
     </div>
-
+    <div class="col-md-12 text-center">
+      <button type="button" class="btn btn-default btn-lg btn3 margin10" onclick="submitQuizFunction()">Submit Quiz</button>
+    </div>
   </body>
 </html>

@@ -155,3 +155,15 @@
   background-color: #FB7548 !important;
   border-color: #FB7548;
 }
+
+.btn3{
+  background-color: #FB7548;
+  color: white;
+  border-color: #FB7548;
+  margin-bottom: 30px;
+}
+
+.btn3:hover{
+  background-color: #808080 !important;
+  border-color: #808080;
+}

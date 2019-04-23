@@ -44,7 +44,7 @@ module.exports.routerForFrontEnd = function(app){
       res.render('createQuiz');
     }
   });
-  // 
+
   // app.get('/start_quiz', function(req, res, next){
   //   if(req.session.user === undefined){
   //       res.redirect('/log_in');
@@ -54,9 +54,18 @@ module.exports.routerForFrontEnd = function(app){
   //   }
   // });
 
-
+  //
   app.get('/start_quiz', function(req, res, next){
         res.render('startQuiz');
+  });
+
+  app.post('/score', function(req, res, next){
+    if(req.session.user === undefined){
+        res.redirect('/log_in');
+      }
+    else{
+      res.render('score', {score: req.body.score, maxScore: req.body.maxScore, percentage: req.body.percentage});
+    }
   });
 
 };
