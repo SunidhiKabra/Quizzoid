@@ -6,9 +6,23 @@
   </head>
   <body>
     <% include partials/headerForOthers.ejs%>
-    <h1>Score</h1>
-    <%= score %>
-    <%= maxScore %>
-    <%= percentage %>
+    <div class="container">
+      <div class="panel panel-default">
+        <div class="panel-heading">Your score</div>
+        <div class="panel-body">
+          <h1 class="margin10"><%= score%>/<%= maxScore%></h1>
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" style='width: <%= percentage %>%' aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><%= percentage%>%</div>
+          </div>
+          <br>
+          <a href="/start_quiz">
+            <button type="button" class="btn btn-primary btn-lg btn2">Take the quiz again</button>
+          </a>
+          <a href="/create_quiz">
+            <button type="button" class="btn btn-primary btn-lg btn2">Create your own quiz</button>
+          </a>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

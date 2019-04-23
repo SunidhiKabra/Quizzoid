@@ -167,3 +167,21 @@
   background-color: #808080 !important;
   border-color: #808080;
 }
+
+.fontSize{
+  font-size: 20px !important;
+}
+
+.progress{
+  margin-top: 25px !important,
+  height: 25px !important;
+  background-color: #808080;
+}
+
+.progress-bar-striped{
+  background-color: #FB7548;
+}
+
+.marginTop30{
+  margin-top: 30px;
+}

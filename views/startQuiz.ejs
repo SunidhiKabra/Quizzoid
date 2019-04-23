@@ -14,8 +14,6 @@
             success:
                 function(result) {
                   resultGlobal = result;
-                  // alert(JSON.stringify(resultGlobal));
-                  // console.log("success : Questions " + JSON.stringify(result));
                   maxScore = result.length * 10;
                   var panel = "<div id='panel' class='container'>"
                 for (i = 0; i < result.length; i++) {
@@ -23,40 +21,18 @@
                 panel +=  "<div class='panel panel-default'>"+
                       "<div class='panel-heading' id='question'><h4> Question " + (i+1) + " <br><br>" + result[i].question + "</h4></div>" +
                         "<div class='panel-body'>" +
-                          "<form id='myForm'>" +
+                          "<form id='myForm' class='fontSize' >" +
                             "<input type='radio' name='radioName' class='radio" + i + "' value= '" + result[i].option1 + "' /> " + result[i].option1 + " <br />" +
                             "<input type='radio' name='radioName' class='radio" + i + "' value= '" + result[i].option2 + "'/> " + result[i].option2 + " <br />" +
                             "<input type='radio' name='radioName' class='radio" + i + "' value= '" + result[i].option3 + "' /> " + result[i].option3 + " <br />" +
                             "<input type='radio' name='radioName' class='radio" + i + "' value= '" + result[i].option4 + "'/> " + result[i].option4 + " <br />" +
-                            // "<label class='container2' id = 'option1'>" + result[i].option1 +
-                            //   "<input type='radio' value = '" + result[i].option1 +"' name = 'option" + i + ">" +
-                            //     "<span class='checkmark'></span>"+
-                            //   "</label>" +
-                            //   "<label class='container2' id = 'option2'>"  + result[i].option2 +
-                            //     "<input type='radio' value = '" + result[i].option2 +"' name = 'option" + i + "'>" +
-                            //       "<span class='checkmark'></span>"+
-                            //     "</label>" +
-                            //   "<label class='container2' id = 'option3'>"  + result[i].option3 +
-                            //     "<input type='radio'  value = '" + result[i].option3 + "' name = 'option" + i + "'>" +
-                            //       "<span class='checkmark'></span>"+
-                            //     "</label>" +
-                            //   "<label class='container2' id = 'option4'>"  + result[i].option4 +
-                            //     "<input type='radio' value = '" + result[i].option4 + "' name = 'option" + i + "'>" +
-                            //       "<span class='checkmark'></span>"+
-                            //     "</label>" +
-                              "<button type='button' class='btn btn-default btn1' onClick = 'myFunction(" + i + " )'>Submit</button>" +
-
-                              // "<button type='button' class='btn btn-default' onClick = 'myFunction(" + i + " , \'" + result[i].correct + "\')'>Submit</button>" +
-
-
+                              " <br><button type='button' class='btn btn-default btn1' onClick = 'myFunction(" + i + " )'>Save this answer</button>" +
                               "</form>" +
                             "</div>" +
                           "</div>"
                 }
                 panel += "</div>"
                 $('#showQuestions').append(panel);
-
-
                 },
                error:
                 function(result) {
@@ -69,20 +45,13 @@
         function myFunction(i){
           var input = $('.radio' + i +':checked').val();
           var correct =  resultGlobal[i].correct;
-          // alert("input = " + input + " i = " + i + " correct = " + correct);
           if(String(input) === String(correct)){
               score = score + 10;
-              // alert("Score = " + score);
-          }
-          else{
-            console.log("incorrect");
-            // alert("incorrect");
           }
         };
 
         function submitQuizFunction(){
             var percentage = ((score/maxScore) * 100).toFixed(0);
-            alert("Score = " + score + " maxScore = " + maxScore + " percentage = " + percentage);
             var url = '/score';
             var form = $('<form action="' + url + '" method="post">' +
               '<input type="text" name="score" value="' + score + '" />' +
@@ -99,6 +68,9 @@
     <div id='showQuestions'>
     </div>
     <div class="col-md-12 text-center">
+      <a href="/home_page">
+        <button type="button" class="btn btn-default btn-lg btn3">Cancel</button>
+      </a>
       <button type="button" class="btn btn-default btn-lg btn3 margin10" onclick="submitQuizFunction()">Submit Quiz</button>
     </div>
   </body>

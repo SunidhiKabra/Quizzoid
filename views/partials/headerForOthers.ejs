@@ -7,9 +7,13 @@
       <ul class="nav nav-justified">
         <li><a href="/start_quiz">Take the Quiz!</a></li><li>
         <li><a href="/create_quiz">Create Your Own Quiz</a></li><li>
-        <li><a href="/sign_up">Sign Up</a></li><li>
-        <a href="/log_in" class="together"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         <li><a href="/contact_us">Contact Us</a></li>
+        <% if(user === undefined || user === null){%>
+          <li><a href="/sign_up">Sign Up</a></li><li>
+          <a href="/log_in" class="together"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <%} else{%>
+          <li><a href="/log_out">Logout</a></li>
+        <% }%>
       </ul>
     </div>
   </div>
